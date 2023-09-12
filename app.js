@@ -101,10 +101,173 @@ const sub = (a,b) => {
 console.log(sub(34,21));
 
 // 6. Create IIFE which will accept a string as argument and return the reversed string.
+// Immediately Invoked Function Expression
+
 const reverseString = str => {
     let arr = str.split("");
     let rev = arr.reverse();
     return rev.join("");
 }
-
 console.log(reverseString("String"));
+
+(function(str) {
+    let rev = "";
+    for(let i=str.length-1; i>=0; i--) {
+        rev += str.charAt(i);
+    }
+    console.log(rev);
+}) ("String");
+
+const reversed = (function(str) {
+    let rev = "";
+    for(let i=str.length-1; i>=0; i--) {
+        rev += str.charAt(i);
+    }
+    return rev;
+}) ("Strings");
+console.log(reversed);
+
+
+// Day 2
+
+// For each of the following, try to work out what the output will be. Run the code in the browser console to check your answer.
+
+var a = 12;
+(function() {
+  console.log(a); // 12
+})(); 
+
+var a = 5;
+(function() {
+  var a = 12;
+  console.log(a); // 12
+})();
+
+var a = 10;
+var x = (function() {
+  var a = 12;
+  return (function() {
+    console.log(a); // 12
+  });
+})();
+x();
+
+var a = 10;
+var x = (function() {
+  var y = function() {
+    var a = 12;
+  };
+  return function() {
+    console.log(a); // 10
+  }
+})();
+x();
+
+var a = 10;
+var x = (function() {
+  (function() {
+    a = 12; // <<< look carefully at this line.
+  })();
+  return (function() {
+    console.log(a); // 12
+  });
+})();
+x();
+
+// var a = 10;
+// (function() {
+//   var a = 15;
+//   window.x = function() {
+//     console.log(a); // 10
+//   }
+// })();
+// x();
+
+// 1. Is array passed by value or reference to a function. Justify your answer with an example.
+// Array is passed by reference to a function because when we pass to an array to a function and modify the
+// array, the changes are visible even outside of the function.
+
+const k = [1, 2, 3, 4, 5];
+const c = a => {
+    a.push(6);
+    return a;
+};
+c(k);
+console.log(k);
+
+// 2. Write a Javascript function to clone an array without using loops.
+const p = [1, 2, 3];
+let q;
+const clone = p => {
+    q = p; 
+}
+clone(p);
+console.log(q);
+
+// 3. Breifly explain the below Array methods with examples
+// shift, unshit, slice, splice, pop
+
+// shift is used to remove the first element of the array
+
+// unshift is used to add an element at the beginning of the array
+
+// slice is used to get a copy of the array from the given start index(inclusive) to end index(exclusive)
+// without modifying the original array
+
+// splice is used to modify the array by adding or removing elements
+// it has 3 arguments
+// 1. start - index at which add / remove operations are performed
+// 2. count - no.of elements are to removed from start index
+// 3. items - add the items to array from start index
+
+// pop is used to remove the last element
+
+const m = [0,1,2,3];
+const method = m => {
+    console.log(m);
+    m.shift();
+    console.log(m);
+    m.unshift(0);
+    console.log(m);
+    const n = m.slice(1,3);
+    console.log(m);
+    console.log(n);
+    m.splice(1,2,4,5,6);
+    console.log(m);
+    m.pop();
+    console.log(m);
+};
+method(m);
+
+// 1. Using a for loop output the elements in reverse order [1,2,3,4,5]
+arr = [1,2,3,4,5];
+for(let i=arr.length; i >= 1; i--) {
+    console.log(i);
+}
+
+// 2. Whats the difference between for .. of and for .. in
+// for .. of is used to iterate through the elements of data structures.
+// for .. in is used to iterate through the properties of an object.
+
+// 1. Use map function to return the squares of the items in the below array [2, 4, 6, 8, 10].
+arr = [2, 4, 6, 8, 10];
+const sqr = arr.map(n => n*n);
+console.log(sqr);
+
+// 2. Use filter function array to extract strings from the below array  [1, ""two"", 3, ""four"", 5, ""Six"", 7, ""Eight"", 9, ""Ten""].
+arr = [1, "two", 3, "four", 5, "Six", 7, "Eight", 9, "Ten"];
+const str = arr.filter(a => {
+    return typeof a === "string";
+});
+console.log(str);
+
+// 3. What are arguments of the reduce function. Use reduce function to return the sum of the items in the array [1, 3, 5, 7, 9].
+// Accumulators and currentValue are the arguments of reduce function. 
+// Initially accumulator takes value of first element and currentValue takes value of second element.
+// If there is another argument in the reduce function, accumulator starts withh the value of second argument.
+arr = [1, 3, 5, 7, 9];
+const reduced = arr.reduce((accumulator, currentValue) => {
+    return accumulator + currentValue;
+});
+console.log(reduced);
+
