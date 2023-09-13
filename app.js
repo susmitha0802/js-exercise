@@ -271,3 +271,100 @@ const reduced = arr.reduce((accumulator, currentValue) => {
 });
 console.log(reduced);
 
+// Day 3
+
+// 1. Write a function which takes an object as input and print out its properties
+const x = {
+    'a': 1,
+    'b': 2
+};
+
+const fun = obj => {
+    for(let k in obj) {
+        console.log(`${k}: ${obj[k]}`);
+    }
+}
+
+fun(x);
+
+// 2. How to delete property 'a' from object x={'a':1,'b':2}
+delete x.a;
+
+console.log(x);
+
+// 3. Given x = {a:'1'}; y = x; does changing y.a change x.a? why? (looking for the answer - objects are pass by reference)
+const x = {a: '1'};
+const y = x;
+y.a = 3;
+
+// If we change the value of y.a, x.a value is changed.
+// Because both x and y refer to the same memory.
+
+console.log(x);
+console.log(y);
+
+// 4. Copy x = {'a':1} to a variable y without creating a reference to x
+const x = {'a': 1}
+const y = Object.assign({},x);
+y.a = 3;
+console.log(x);
+console.log(y);
+
+// 5. Write a function to check if two objects are equal
+const equality = (obj1,obj2) => {
+    return typeof obj1 === typeof obj2 && obj1===obj2;
+}
+
+console.log(equality(x,y));
+
+// 1. Implement Queue using javascript class. It should have the below methods
+//     * enqueue
+//     * dequeue
+//     * front
+//     * isEmpty
+
+class Queue extends Array {
+    enqueue (x) {
+        super.push(x);
+    }
+    dequeue () {
+        return super.shift();
+    }
+    front () {
+        return this.length === 0 ? -1 : this[0];
+    }
+    isEmpty () {
+        return this.length === 0 ? true : false;
+    }
+}
+
+const q = new Queue();
+q.enqueue(1);
+q.enqueue(2);
+q.enqueue(3);
+console.log(q);
+console.log(q.dequeue());
+console.log(q);
+console.log(q.front());
+console.log(q.isEmpty());
+
+// 2. Explain instanceOf operator with an example.
+// instanceOf operator is used to check whether the object is an instance of a particular class
+// Every object that is created is an instance of an Object class
+// Child class object is also an instance of parent class
+
+class A {
+    fun () {
+        console.log("Class A");
+    }
+}
+class B extends A  {
+    print () {
+        console.log("Class B");
+    }
+}
+const b = new B();
+console.log(b instanceof B);
+console.log(b instanceof A);
+console.log(b instanceof Object);
+
