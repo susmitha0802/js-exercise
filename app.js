@@ -368,3 +368,33 @@ console.log(b instanceof B);
 console.log(b instanceof A);
 console.log(b instanceof Object);
 
+// 1. Solve https://www.hackerrank.com/contests/javascript-week2/challenges/js-callbacks
+
+function myFilter(my_array, callback){
+    //Enter your code here
+    const arr = [];
+    for(num of my_array) {
+        if(callback(num)) {
+            arr.push(num);
+        }
+    }
+    return arr;
+  
+}
+
+function processData(inputArray) {
+    //In blank write anonymous function, which takes one parameter and returns true if its even or false if its odd.
+    console.log(myFilter(inputArray, num => num%2==0 ? true : false));   
+} 
+
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+_input = "";
+process.stdin.on("data", function (input) {
+    _input += input;
+});
+
+process.stdin.on("end", function () {
+   processData(_input.split(' ').map(num => Number(num)));
+});
+
