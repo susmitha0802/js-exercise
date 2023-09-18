@@ -398,3 +398,64 @@ process.stdin.on("end", function () {
    processData(_input.split(' ').map(num => Number(num)));
 });
 
+// Day 4 
+
+// 1. Briefly explain different Promise states.
+// Promise has three states.1. Briefly explain different Promise states.
+// 1. Pending
+// 2. Fulfiled - returns a value
+// 3. Rejected - returns a reason
+
+// 2. Using promise to create a delayedLowerCase function which will transform a string to lower case after 5 seconds. Ex Input: ""BEAUTIFUL CODE"" Output: ""beautiful code""
+var str = "BEAUTIFUL CODE";
+const delayedLowerCase = str => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if(typeof str === "string") {
+                str = str.toLowerCase();
+                console.log(str);
+                resolve(str);
+            }
+            else {
+                reject("Please provide a string");
+            }
+        },5000);
+    })
+}
+delayedLowerCase(str);
+
+// 3. Briefly explain Promise Chaining. For the above created delayedLowerCase function chain a promise which will print the string and its length: Ex: Input: ""Beautiful Code""  Output: ""beautiful code - 14""
+// Promise chaining is usesd when there are two or more asynchronous functions that are to be executed,
+// where the result of next depends on the result of first function.
+// resolve and reject doesn't appear on console instead,
+// their values are passed as arguments for then and catch.
+delayedLowerCase(str).then((str) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log(str + " - " + str.length);
+            resolve(str);
+        },1000);
+    })
+});
+
+// 1. Rewrite the below using Async-Await syntax
+
+function getProcessedData(url) {
+  return downloadData(url) // returns a promise
+    .catch(e => {
+      return downloadFallbackData(url)  // returns a promise
+    })
+    .then(v => {
+      return processDataInWorker(v)  // returns a promise
+    })
+}
+
+async function getProcessedData(url) {
+    try {
+        await downloadData(url) // returns a promise
+        await processDataInWorker(v)  // returns a promise
+    } 
+    catch(err) {
+        return downloadFallbackData(url)
+    }
+}
